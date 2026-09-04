@@ -1,0 +1,59 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "api",
+  "projectType": "application",
+  "sourceRoot": "apps/api/src",
+  "tags": ["type:app", "scope:api"],
+  "targets": {
+    "classes": {
+      "cache": false,
+      "continuous": true,
+      "options": {
+        "args": ["--continuous"],
+        "excludeDependsOn": false
+      }
+    },
+    "bootRun": {
+      "cache": false,
+      "continuous": true,
+      "options": {
+        "continuous": false,
+        "excludeDependsOn": false
+      }
+    },
+    "deploy": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "bash tools/deploy/api.sh"
+      }
+    },
+    "archTest": {
+      "cache": true,
+      "dependsOn": [],
+      "options": {
+        "excludeDependsOn": false
+      }
+    },
+    "test": {
+      "cache": true,
+      "dependsOn": [],
+      "options": {
+        "excludeDependsOn": false
+      }
+    },
+    "bootJar": {
+      "cache": true,
+      "dependsOn": [],
+      "options": {
+        "excludeDependsOn": false
+      }
+    },
+    "spotlessCheck": {
+      "cache": true,
+      "dependsOn": [],
+      "options": {
+        "excludeDependsOn": false
+      }
+    }
+  }
+}

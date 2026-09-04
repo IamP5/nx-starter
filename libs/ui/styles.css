@@ -1,0 +1,221 @@
+@layer ng-icon, theme, base, components, utilities;
+@import 'tailwindcss';
+@import './core/css/tailwind.css';
+@plugin "tailwindcss-animate";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Nx Starter theme - shadcn/Vercel structure with a neutral blue brand palette.
+ *
+ * Light-mode reference values:
+ *   Surfaces      #ffffff page - #fafafa subtle - #f0f0f0 footer/muted
+ *   Text          #000 primary - #333 secondary - #666 subtle
+ *   Borders       #e5e5e5 light - #b2b2b2 moderate
+ *   Button        #066fef bg - #044ea7 hover - #fff text
+ *   Accent/links  #0562d2 (links, active crumbs, headings)
+ *   Brand base    #00095b (navbar/brand base) - #00142e brand dark surface
+ *   Status        #d93025 error - #68b631 success - #ffc107 warning
+ *   Font          Inter, Arial, sans-serif
+ *
+ * Dark mode is derived from those values: dark surfaces (#0f0f0f, #1a1a1a)
+ * with neutral grays lifted for contrast, while the brand blues stay put so
+ * they still read as CTAs on dark surfaces.
+ *
+ * Swap the --brand-* values below to rebrand the whole design system.
+ *
+ * Mode-dependent tokens live in :root/.dark and are mirrored into
+ * `@theme inline` via var() so Tailwind utilities flip with the cascade.
+ */
+:root {
+  --radius: 0.5rem;
+
+  /* Brand colors — invariant across light/dark, exposed for raw CSS */
+  --brand-blue: oklch(0.519 0.189 258); /* #0562d2 accent */
+  --brand-action: oklch(0.568 0.21 258.3); /* #066fef button */
+  --brand-action-hover: oklch(0.441 0.157 257.7); /* #044ea7 */
+  --brand-heritage: oklch(0.225 0.139 264.2); /* #00095b brand base */
+  --brand-deep: oklch(0.192 0.06 253.4); /* #00142e */
+
+  /* Status — light */
+  --success: oklch(0.7 0.181 135.3); /* #68b631 */
+  --warning: oklch(0.844 0.172 84.9); /* #ffc107 */
+  --info: var(--brand-blue);
+
+  /* Semantic tokens — light */
+  --background: oklch(1 0 0); /* #ffffff */
+  --foreground: oklch(0 0 0); /* #000000 */
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0 0 0);
+  --primary: var(--brand-action); /* #066fef */
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.955 0 0); /* #f0f0f0 */
+  --secondary-foreground: oklch(0.321 0 0); /* #333333 */
+  --muted: oklch(0.955 0 0); /* #f0f0f0 */
+  --muted-foreground: oklch(0.51 0 0); /* #666666 */
+  --accent: oklch(0.985 0 0); /* #fafafa */
+  --accent-foreground: oklch(0 0 0);
+  --destructive: oklch(0.578 0.206 29); /* #d93025 */
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.922 0 0); /* #e5e5e5 */
+  --input: oklch(0.764 0 0); /* #b2b2b2 */
+  --ring: var(--brand-blue);
+
+  /* Charts: accent blue, brand base, red, green, amber */
+  --chart-1: var(--brand-blue);
+  --chart-2: var(--brand-heritage);
+  --chart-3: oklch(0.578 0.206 29);
+  --chart-4: oklch(0.7 0.181 135.3);
+  --chart-5: oklch(0.844 0.172 84.9);
+
+  /* Sidebar — brand base surface in both modes */
+  --sidebar: var(--brand-heritage);
+  --sidebar-foreground: oklch(1 0 0);
+  --sidebar-primary: var(--brand-action);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: var(--brand-deep);
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border: oklch(1 0 0 / 12%);
+  --sidebar-ring: var(--brand-blue);
+}
+
+.dark {
+  --background: oklch(0.168 0 0); /* #0f0f0f — secondary background */
+  --foreground: oklch(0.955 0 0); /* #f0f0f0 — on-dark text */
+  --card: oklch(0.218 0 0); /* #1a1a1a */
+  --card-foreground: oklch(0.955 0 0);
+  --popover: oklch(0.218 0 0);
+  --popover-foreground: oklch(0.955 0 0);
+
+  /* Brand blues do not flip */
+  --primary: var(--brand-action);
+  --primary-foreground: oklch(1 0 0);
+  --ring: oklch(0.609 0.189 256.4); /* #2480f1 — lighter ring on dark */
+
+  --secondary: oklch(0.269 0 0); /* #262626 */
+  --secondary-foreground: oklch(0.922 0 0); /* #e5e5e5 */
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.764 0 0); /* #b2b2b2 */
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.955 0 0);
+  --destructive: oklch(0.65 0.2 27); /* #d93025 lifted for dark */
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 18%);
+
+  --success: oklch(0.76 0.18 135); /* #68b631 lifted */
+  --warning: oklch(0.86 0.17 85);
+  --info: oklch(0.609 0.189 256.4);
+
+  --chart-1: oklch(0.609 0.189 256.4); /* #2480f1 */
+  --chart-2: oklch(0.45 0.16 262); /* brand base lifted for contrast */
+  --chart-3: oklch(0.65 0.2 27);
+  --chart-4: oklch(0.76 0.18 135);
+  --chart-5: oklch(0.86 0.17 85);
+
+  --sidebar: var(--brand-heritage);
+  --sidebar-foreground: oklch(1 0 0);
+  --sidebar-primary: var(--brand-action);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: var(--brand-deep);
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border: oklch(1 0 0 / 12%);
+  --sidebar-ring: oklch(0.609 0.189 256.4);
+}
+
+@theme inline {
+  /* Inter with an Arial fallback */
+  --font-sans:
+    'Inter', Arial, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, monospace;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  /* Brand + status tokens: bg-brand-blue, text-brand-heritage, text-success, ... */
+  --color-brand-blue: var(--brand-blue);
+  --color-brand-action: var(--brand-action);
+  --color-brand-action-hover: var(--brand-action-hover);
+  --color-brand-heritage: var(--brand-heritage);
+  --color-brand-deep: var(--brand-deep);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-info: var(--info);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    color-scheme: light dark;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: 'cv11', 'ss01';
+  }
+
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type='number'] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--muted-foreground);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 5px;
+  background: var(--muted);
+}

@@ -1,0 +1,25 @@
+/*
+ * Web app global stylesheet.
+ * Tailwind v4 + the shared Zard UI theme (neutral brand palette) are the single entry;
+ * everything else is expressed as utilities in component templates.
+ */
+@import '../../../libs/ui/styles.css';
+
+@layer base {
+  html,
+  body {
+    min-width: 320px;
+    min-height: 100vh;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
