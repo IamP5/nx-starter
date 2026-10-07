@@ -1,7 +1,7 @@
 <!-- nx configuration start-->
 <!-- Leave the start & end comments to automatically receive updates. -->
 
-# General Guidelines for working with Nx
+## General Guidelines for working with Nx
 
 - For navigating/exploring the workspace, invoke the `nx-workspace` skill first - it has patterns for querying projects, targets, and dependencies
 - When running tasks (for example build, lint, test, e2e, etc.), always prefer running the task through `nx` (i.e. `nx run`, `nx run-many`, `nx affected`) instead of using the underlying tooling directly
@@ -94,3 +94,13 @@ in this file are workspace-wide only.
   `cd apps/api && claude`).
 - Cursor rules live in `.cursor/rules/` (workspace) and `apps/*/.cursor/rules/`
   (per app, attached when files of that app are referenced).
+- Never run `nx configure-ai-agents` on the workspace directly: it rewrites
+  files this setup owns. Run it in a throwaway copy and port back only what
+  fits: the `<!-- nx configuration -->` block of this file, the Nx skills
+  into `.agents/skills/`, and the CI subagents (`.codex/agents/`,
+  `.cursor/agents/`); then run `npm run sync:agent-config`. Reject the Nx
+  block it appends to `CLAUDE.md` (which only imports this file), the
+  removal of `.mcp.json`, and the OpenCode files (`opencode.json`,
+  `.opencode/`). `nx configure-ai-agents --check` then reports nothing
+  outdated; `--check=all` still lists Claude Code, Codex and OpenCode, which
+  is expected.
